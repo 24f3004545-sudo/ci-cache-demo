@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # Step 2: Setup Node.js (for npm dependencies)
+      # Step 2: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -27,4 +27,15 @@ jobs:
         with:
           path: ~/.npm
           key: cache-d48c5d1
-          restor
+          restore-keys: |
+            cache-d48c5d1
+
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 5: Show cache hit/miss
+      - name: Show cache result
+        run: |
+          CACHE_HIT="${{ steps.npm-cache.outputs.cache-hit }}"
+          echo "Cache hit: $CACHE_HIT"
