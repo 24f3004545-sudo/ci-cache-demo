@@ -21,14 +21,14 @@ jobs:
           node-version: '18'
 
       # Step 3: Cache npm dependencies
-      - name: prime-cache-d48c5d1
+      - name: Cache npm dependencies
         id: npm-cache
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: cache-d48c5d1
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            cache-d48c5d1
+            ${{ runner.os }}-npm-
 
       # Step 4: Install dependencies
       - name: Install dependencies
